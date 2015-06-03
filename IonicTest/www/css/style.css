@@ -1,2 +1,43 @@
 /* Empty. Add your own CSS if you like */
+div.col-calender{
+    padding: 0;
+}
 
+div.subheader-calender{
+    padding: 0;
+    margin-top: -2px;
+    margin-bottom: 0px;
+    border-bottom: 0px;
+}
+
+button.button-full.button-calender-subheader{
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+    height: 45px;
+}
+
+button.button-full.button-calender-first{
+    padding: 0;
+    font-size: 12px;
+    margin-top: 11px;
+    margin-bottom: 0px;
+}
+
+button.button-full.button-calender-other{
+    padding: 0;
+    margin-top: 4px;
+    margin-bottom: 0;
+    font-size: 12px;
+}
+
+div.row-calender-first{
+    padding: 0;
+    margin-bottom: 0;
+}
+
+div.row-calender-other{
+    padding: 0;
+    margin-top: -11px;
+}

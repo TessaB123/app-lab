@@ -1,20 +1,16 @@
-angular.module('starter.controllers', [])
+angular.module('ionicApp.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+    .controller('MainCtrl', function($scope, $ionicSideMenuDelegate) {
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
-})
+        $scope.toggleLeft = function() {
+            $ionicSideMenuDelegate.toggleLeft();
+        };
+    })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+    .controller('ProfielCtrl', function($scope) {
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
+    })
+
+    .controller('PlanningCtrl', function($scope) {
+
+    });

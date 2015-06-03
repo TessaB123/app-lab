@@ -8,6 +8,7 @@
       Ionic Framework Team
     </author>
   <content src="index.html"/>
+  <content overflow-scroll="true"></content>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
