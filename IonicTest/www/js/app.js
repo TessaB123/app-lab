@@ -1,4 +1,4 @@
-angular.module('ionicApp', ['ionic', 'ionicApp.controllers'])
+angular.module('ionicApp', ['ionic', 'ionicApp.controllers', 'ngCordova'])
 
     .config(function($stateProvider, $urlRouterProvider) {
 
@@ -8,14 +8,28 @@ angular.module('ionicApp', ['ionic', 'ionicApp.controllers'])
                 abstract: true,
                 templateUrl: "templates/menu.html"
             })
+
+            .state('app.intro', {
+                url: "/intro",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/intro.html",
+                        controller: "IntroCtrl"
+                    }
+                }
+            })
+
             .state('app.home', {
                 url: "/home",
                 views: {
                     'menuContent' :{
-                        templateUrl: "templates/home.html"
+                        templateUrl: "templates/home.html",
+                        controller: 'MainCtrl'
+
                     }
                 }
             })
+
             .state('app.profiel', {
                 url: "/profiel",
                 views: {
@@ -37,3 +51,9 @@ angular.module('ionicApp', ['ionic', 'ionicApp.controllers'])
 
         $urlRouterProvider.otherwise("/app/home");
     });
+
+    /*.run(function ($cordovaSplashscreen) {
+        setTimeout(function () {
+            $cordovaSplashscreen.hide();
+        }, 5000);
+    });*/

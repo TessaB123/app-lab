@@ -1,0 +1,30 @@
+<ion-view left-buttons="leftButtons" rightButtons="rightButtons">
+    <div class="left">
+        <button class="button button-calm button-clear no-animation icon ion-chevron-left" ng-click="previous()" ng-if="!slideIndex">
+        </button>
+        <button class="button button-calm button-clear no-animation icon ion-chevron-left" ng-click="previous()" ng-if="slideIndex > 0">
+        </button>
+    </div>
+    <div class="right">
+        <button class="button button-calm button-clear no-animation icon ion-chevron-right" ng-click="next()" ng-if="!slideIndex">
+        </button>
+        <button class="button button-calm button-clear no-animation icon ion-chevron-right" ng-click="next()" ng-if="slideIndex > 0">
+        </button>
+    </div>
+
+    <ion-slide-box on-slide-changed="slideChanged(index)">
+        <ion-slide>
+            <h3>Welkom bij de App for Adaptive Planning.</h3>
+        </ion-slide>
+        <ion-slide>
+            <h3>Hoe werkt het?</h3>
+        </ion-slide>
+        <ion-slide>
+            <h3>Nog vragen?</h3>
+        </ion-slide>
+        <ion-slide>
+            <h3>Dat was de introductie.</h3>
+            <button class="button button-calm button-outline" ng-click="toApp()">Naar de app.</button>
+        </ion-slide>
+    </ion-slide-box>
+</ion-view>
