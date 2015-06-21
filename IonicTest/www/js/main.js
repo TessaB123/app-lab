@@ -26,3 +26,5 @@ function refresh(){
         console.log(d.voornaam);
     });
 }
+
+var app = angular.module('Ionic', ['ui.calendar'])

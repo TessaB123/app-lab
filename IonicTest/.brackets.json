@@ -1,0 +1,11 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/camera/camera.ctrl.js",
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/hooks/after_prepare/010_add_platform_class.js",
+        "/Users/irismonster/app-lab/IonicTest/www/lib/ionic/js/ionic-angular.js",
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/app.js",
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/appAvailability/appAvailability.ctrl.js",
+        "/Users/irismonster/app-lab/IonicTest/www/js/bootstrap.min.js",
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/batteryStatus/batteryStatus.ctrl.js"
+    ]
+}

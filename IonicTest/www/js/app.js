@@ -47,6 +47,15 @@ angular.module('ionicApp', ['ionic', 'ionicApp.controllers', 'ngCordova'])
                         controller: "PlanningCtrl"
                     }
                 }
+            })
+            .state('app.rooster', {
+                url: "/rooster",
+                views: {
+                    'menuContent' :{
+                        templateUrl: "templates/rooster.html",
+                        controller: "RoosterCtrl"
+                    }
+                }
             });
 
         $urlRouterProvider.otherwise("/app/home");
