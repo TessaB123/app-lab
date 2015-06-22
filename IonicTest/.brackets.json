@@ -6,6 +6,9 @@
         "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/app.js",
         "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/appAvailability/appAvailability.ctrl.js",
         "/Users/irismonster/app-lab/IonicTest/www/js/bootstrap.min.js",
-        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/batteryStatus/batteryStatus.ctrl.js"
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/batteryStatus/batteryStatus.ctrl.js",
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/clipboard/clipboard.ctrl.js",
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/www/app/contacts/contacts.ctrl.js",
+        "/Users/irismonster/app-lab/IonicTest/www/js/main.js"
     ]
 }

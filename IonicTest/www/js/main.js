@@ -19,7 +19,7 @@ $("button").click(function(){
 var id = 148233;
 
 function refresh(){
-    console.log("Bla");
+    console.log("Blaf");
     $.post('php/read_refresh.php?id='+id,function(data) 
     {
         d = JSON.parse(data);
@@ -27,4 +27,14 @@ function refresh(){
     });
 }
 
-var app = angular.module('Ionic', ['ui.calendar'])
+function getRooster(){
+   console.log("Rooster fetching...");
+    $.get('php/read_refresh.php?id='+id+'/weekRooster',function(data) 
+    {
+        d = JSON.parse(data);
+        console.log(d);
+    });
+}
+
+/*var app = angular.module('Ionic', ['ui.calendar'])*/
+
