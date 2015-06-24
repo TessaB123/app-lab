@@ -95,3 +95,36 @@ div.row-calender-other{
 .right{
     right: 0;
 }
+
+.toPlanContainer{
+    border-radius: 2px;
+    box-shadow: 2px 2px 10px #888a85;
+    padding: 10px;
+    margin: 10px;
+    color: red;   
+}
+
+.toPlanItem{
+    
+}
+
+.profielNaam{
+    font-weight: bold;
+    color: #888a85; 
+    font-size: large;
+    padding : 20px;
+}
+
+.planVakNaam{
+    font-weight: bold;
+    color: #888a85;
+    
+}
+
+.planDeadline{
+    color: #11c1f3;
+}
+
+.planContent{
+        color: #11c1f3;
+}

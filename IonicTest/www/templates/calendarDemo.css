@@ -100,3 +100,15 @@ section {
 .calTools{
 	margin-bottom: 10px;
 }
+
+.homework{
+    background-color: orange;   
+}
+
+.test{
+    background-color:  red;   
+}
+
+.regular{
+    background-color: blue;   
+}

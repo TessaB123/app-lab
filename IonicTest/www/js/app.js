@@ -9,6 +9,12 @@ angular.module('ionicApp', ['ionic', 'ionicApp.controllers', 'ngCordova'])
                 templateUrl: "templates/menu.html"
             })
 
+            .state('login', {
+                url: '/login',
+                templateUrl: 'templates/login.html',
+                controller: 'LoginCtrl'
+
+            })
             .state('app.intro', {
                 url: "/intro",
                 views: {
@@ -56,9 +62,18 @@ angular.module('ionicApp', ['ionic', 'ionicApp.controllers', 'ngCordova'])
                         controller: "RoosterCtrl"
                     }
                 }
+            })
+            .state('app.inplannen', {
+                url: "/inplannen",
+                views: {
+                    'menuContent' :{
+                        templateUrl: "templates/inplannen.html",
+                        controller: "InplannenCtrl"
+                    }
+                }
             });
 
-        $urlRouterProvider.otherwise("/app/home");
+        $urlRouterProvider.otherwise('/login');
     });
 
     /*.run(function ($cordovaSplashscreen) {

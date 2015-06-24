@@ -177,7 +177,6 @@ var rtlDefaults = {
 var fc = $.fullCalendar = { version: "2.1.1" };
 var fcViews = fc.views = {};
 
-
 $.fn.fullCalendar = function(options) {
 	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
 	var res = this; // what this function will return (this jQuery object by default)
