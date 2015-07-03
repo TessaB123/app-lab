@@ -1,0 +1,20 @@
+<div class="toPlanItem">
+                    <div class="planVakNaam">
+                        Nederlands
+                    </div>
+                    <div class="planContent">
+                        Lezen paragraaf 4
+                    </div>
+                    <div class="planDeadline">
+                        Deadline: Maandag 29 juni
+                    </div>
+                    <div class="list list-inset">
+                      <label class="item item-input">
+                          <input type="telephone" placeholder="Hoeveel keer?" ng-model="data.keer">
+                      </label>
+                      <label class="item item-input">
+                          <input type="telephone" placeholder="Hoe lang elk blok in minuten?" ng-model="data.tijd">
+                      </label>
+                  </div>
+                    <button class="button button-calm button-outline" ng-click="planIn(2343)">Plan in</button>
+                </div>

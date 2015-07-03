@@ -31,37 +31,103 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
 
     })
 
-    .controller('InplannenCtrl', function($scope, $ionicPopup, $timeout) {
+    .controller('InplannenCtrl', function($scope, $state, $ionicPopup, $timeout, $sce, $compile, appService) {
+        $scope.reload = function()
+        {
+            console.log("Reload begins");
+        var toPlan = appService.getAssignments();
+            console.log(toPlan[0].vak);
+        var code = '';
+        for(i = 0; i < toPlan.length; i++)
+        {
+            currentAssignment = toPlan[i];
+            if(!currentAssignment.ingepland)
+            {
+                vak = currentAssignment.vak;
+                content = currentAssignment.content;
+                datumRaw = currentAssignment.deadline;
+                id = currentAssignment.id;
+                
+                startDag = datumRaw.split("T")[0];
+                startDag = startDag.split("-");
+                deadline = startDag[2] + " " + startDag[1];
+                codeDeel = '<div class="toPlanContainer"><div class="planVakNaam">'+vak+'</div><div class="planContent">'+content+'</div><div class="planDeadline">'+deadline+'</div><div class="list list-inset"><label class="item item-input"><input type="telephone" placeholder="Hoeveel keer?" ng-model="data.keer"></label><label class="item item-input"><input type="telephone" placeholder="Hoe lang elk blok in minuten?" ng-model="data.tijd"></label></div><button class="button button-calm button-outline" ng-click="planIn(\''+id+'\')">Plan in</button></div>';
+                code = code+codeDeel;
+            }
+        }
+
+        $scope.code = code;
         $scope.data = {};
+        };
+    
+        $scope.reload();
+        //$scope.buttonHtml = "<button ng-click='showMessage(\"foo\")'>click me</button>";
+        //$scope.showMessage = function(message) {
+        //alert(message);}
         
-        $scope.login = function() {
+        $scope.planIn = function(ID) {
             keren = parseInt($scope.data.keer);
             duur = $scope.data.tijd;
-            $.post('php/read_refresh.php?id=',function(data) 
-            {
-                d = JSON.parse(data);
-                console.log(d.voornaam);
-                
-            });
-            console.log("Keren: " + $scope.data.keer + " - Min: " + $scope.data.tijd);
+            senddata = {"blokken" : keren,"tijdsduur" : duur,"verspreid" : true};
+            userID = appService.getID();
+            $.ajax({      
+            contentType : "application/json",
+    		type: 'POST',
+    		url: 'http://applab.ai.ru.nl:8080/ateam/database/personen/'+userID+'/opdrachten/'+ID,
+    		data: JSON.stringify(senddata),
+                success: function(data){
+                    console.log(data);
+                }
+    	    });
+            appService.prepareAssignments();
+            console.log("Keren: " + $scope.data.keer + " - Min: " + $scope.data.tijd);  
+            $scope.reload();
+            
         }
     })
 
-    .controller('LoginCtrl', function($scope, $state) {
+    .controller('LoginCtrl', function($scope, $state, appService) {
         $scope.data = {};
         
         $scope.login = function() {
             username = parseInt($scope.data.username);
             password = $scope.data.password;
             school = $scope.data.school;
-            $.post('php/read_refresh.php?',{"id" : 148233, "wachtwoord" : "Aukje2605200", "school": "canisius"},function(data) 
-            {
-                d = JSON.parse(data);
-                console.log(d);
-                
-            });
+            senddata = {"id" : username, "wachtwoord" : password, "school": school};
+             $.ajax({      
+            contentType : "application/json",
+    		type: 'POST',
+    		url: 'http://applab.ai.ru.nl:8080/ateam/database/personen',
+    		data: JSON.stringify(senddata),
+            success: function(data){
+                console.log(data);
+                if(data == 2)
+                {
+                    window.localStorage['didTutorial'] = true;
+                    $state.go('app.rooster'); 
+                }    
+                else if(data == 1)
+                {
+                    window.localStorage['didTutorial'] = false;
+
+                    $state.go('app.intro');
+                }
+                else
+                {
+                    window.localStorage['didTutorial'] = true;
+                    $state.go('app.rooster');
+                }
+                    
+            },
+            fail: function(){
+                console.log("FAIL");    
+            }
+    	    });
+            
+            appService.setID(username);
+            appService.prepareAssignments();
+            
             console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password + " - School: " + $scope.data.school);
-            $state.go('app.home');
         }
         })
 
@@ -237,8 +303,6 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
     .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
         var startApp = function () {
             $state.go('app.home');
-
-            window.localStorage['didTutorial'] = true;
         };
 
         if (window.localStorage['didTutorial'] === "true") {

@@ -20,16 +20,15 @@ var id = 148233;
 
 function refresh(){
     console.log("Blaf");
-    json = {"id" : 148233, "wachtwoord" : "Aukje2605200", "school": "canisius"};
+    senddata = {"id" : 148233, "wachtwoord" : "Aukje2605200", "school": "canisius"};
     
-    $.ajax({
-        url: 'http://applab.ai.ru.nl:8080/ateam/database/personen',
-        data: json,
-        type: 'POST',
-        dataType: 'jsonp',
-        success: function() { alert("Success"); },
-        error: function() { alert('Failed!'); },
-    });
+            $.ajax({      
+            contentType : "application/json",
+    		type: 'POST',
+    		url: 'http://applab.ai.ru.nl:8080/ateam/database/personen',
+    		data: JSON.stringify(senddata)
+    	    });
+
 }
 
 function getRooster(){
@@ -43,25 +42,13 @@ function getRooster(){
 
 function getToPlan(){
     console.log("Assignments fetching...");
-    $.get('php/read_refresh.php?id='+id,function(data) 
+    $.get('http://applab.ai.ru.nl:8080/ateam/database/personen/'+id,function(data) 
     {
         d = JSON.parse(data);
         opdrachten = d.opdrachten;
-        laCode = [];
-        document.getElementById("test").innerHTML = '<button class="button button-light" onclick="getRooster()" >Click me</button>';
-
-                    $( "#success" ).load( "../templates/inplannen.html", function( response, status, xhr ) {
-                        console.log(response);
-                if ( status == "error" ) 
-                {
-                    var msg = "Sorry but there was an error: ";
-                    console.log(msg);
-                }
-            }); 
-        for(i = 0; i < opdrachten.length; i++)
-        {
-  
-        }
+        laCode = '';
+        
+        document.getElementById("test").innerHTML = laCode;
         console.log(d.opdrachten);
     });
 }

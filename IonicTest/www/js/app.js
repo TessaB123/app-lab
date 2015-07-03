@@ -1,6 +1,6 @@
-angular.module('ionicApp', ['ionic', 'ionicApp.controllers', 'ngCordova'])
+var app = angular.module('ionicApp', ['ionic', 'ionicApp.controllers', 'ngCordova', 'app.directives'])
 
-    .config(function($stateProvider, $urlRouterProvider) {
+    app.config(function($stateProvider, $urlRouterProvider) {
 
         $stateProvider
             .state('app', {
@@ -76,8 +76,38 @@ angular.module('ionicApp', ['ionic', 'ionicApp.controllers', 'ngCordova'])
         $urlRouterProvider.otherwise('/login');
     });
 
-    /*.run(function ($cordovaSplashscreen) {
-        setTimeout(function () {
-            $cordovaSplashscreen.hide();
-        }, 5000);
-    });*/
+    app.service('appService', function() {
+      var id;
+        var assignments;
+
+      var setID = function(newObj) {
+          id = newObj;
+      };
+
+      var getID = function(){
+          return id;
+      };
+        
+        var prepareAssignments = function(){
+        $.getJSON('http://applab.ai.ru.nl:8080/ateam/database/personen/'+id+'/opdrachten')
+          .done(function( json ) {
+            assignments = json;
+          })
+          .fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
+            });
+        };
+        
+        var getAssignments = function(){
+            return assignments;   
+        };
+
+      return {
+        setID: setID,
+        getID: getID,
+          prepareAssignments: prepareAssignments,
+          getAssignments: getAssignments
+      };
+
+    });
