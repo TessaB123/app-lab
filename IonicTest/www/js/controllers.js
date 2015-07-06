@@ -1,5 +1,7 @@
 angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
 
+
+
     .controller('MainCtrl', function($scope, $state, $ionicSideMenuDelegate) {
         //console.log('MainCtrl');
         //setTimeout(function () {
@@ -32,12 +34,22 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
     })
 
     .controller('InplannenCtrl', function($scope, $state, $ionicPopup, $timeout, $sce, $compile, appService) {
+            $scope.toPlan = appService.getAssignments();
+            console.log($scope.toPlan[0].vak);
+            for(i = 0; i < $scope.toPlan.length; i++)
+            {
+                $scope.toPlan[i].data = {};
+                $scope.toPlan[i].data.keer = null; 
+                $scope.toPlan[i].data.tijd = null;
+            }
+        console.log($scope.toPlan[0]);
         $scope.reload = function()
         {
             console.log("Reload begins");
-        var toPlan = appService.getAssignments();
-            console.log(toPlan[0].vak);
+
         var code = '';
+        //codeDeel = '<div ng-repeat="currentAssignment in toPlan">'{{currentAssignment.vak}}'</div>';
+            /*
         for(i = 0; i < toPlan.length; i++)
         {
             currentAssignment = toPlan[i];
@@ -54,10 +66,11 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
                 codeDeel = '<div class="toPlanContainer"><div class="planVakNaam">'+vak+'</div><div class="planContent">'+content+'</div><div class="planDeadline">'+deadline+'</div><div class="list list-inset"><label class="item item-input"><input type="telephone" placeholder="Hoeveel keer?" ng-model="data.keer"></label><label class="item item-input"><input type="telephone" placeholder="Hoe lang elk blok in minuten?" ng-model="data.tijd"></label></div><button class="button button-calm button-outline" ng-click="planIn(\''+id+'\')">Plan in</button></div>';
                 code = code+codeDeel;
             }
+        //code = code+codeDeel;
         }
-
-        $scope.code = code;
-        $scope.data = {};
+            */
+        //$scope.code = code;
+        //$scope.data = {};
         };
     
         $scope.reload();
@@ -65,11 +78,18 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
         //$scope.showMessage = function(message) {
         //alert(message);}
         
-        $scope.planIn = function(ID) {
+        $scope.planIn = function(assignment) {
+            /*
             keren = parseInt($scope.data.keer);
             duur = $scope.data.tijd;
-            senddata = {"blokken" : keren,"tijdsduur" : duur,"verspreid" : true};
+            
+            */
             userID = appService.getID();
+            keren = parseInt(assignment.data.keer);
+            console.log("Keren: " + keren);
+	        duur = assignment.data.tijd;
+	        ID = assignment.id;
+            senddata = {"blokken" : keren,"tijdsduur" : duur,"verspreid" : true};
             $.ajax({      
             contentType : "application/json",
     		type: 'POST',
@@ -80,7 +100,6 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
                 }
     	    });
             appService.prepareAssignments();
-            console.log("Keren: " + $scope.data.keer + " - Min: " + $scope.data.tijd);  
             $scope.reload();
             
         }
@@ -93,6 +112,9 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
             username = parseInt($scope.data.username);
             password = $scope.data.password;
             school = $scope.data.school;
+            username = 148233;
+            password = "Aukje26052000";
+            school = "canisius";
             senddata = {"id" : username, "wachtwoord" : password, "school": school};
              $.ajax({      
             contentType : "application/json",
@@ -124,14 +146,14 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
             }
     	    });
             
-            appService.setID(username);
+            appService.setID(username); 
             appService.prepareAssignments();
             
             console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password + " - School: " + $scope.data.school);
         }
         })
 
-    .controller('RoosterCtrl', function RoosterCtrl($scope,$compile,uiCalendarConfig) {
+    .controller('RoosterCtrl', function RoosterCtrl($scope,$compile,uiCalendarConfig, appService) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -203,46 +225,50 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
         className: ['openSesame']
       });
     };
-    /* add custom event*/
     $scope.refreshEvent = function() {
-        $.get('php/post_timeblox.php?id='+id+'/rooster',function(data) 
-        {
-            console.log("Refreshing rooster...");
-            d = JSON.parse(data);
-            roo = d;
-            for (i = 0; i < roo.length; i++) {
-                console.log(roo[i]);
-                startTime = roo[i].begin;
-                startDag = startTime.split("T")[0];
-                startDag = startDag.split("-");
-                startTijd = startTime.split("T")[1];
-                startTijd = startTijd.split(":");
-                startDate = new Date(startDag[0], (parseInt(startDag[1]) - 1), startDag[2], (parseInt(startTijd[0]) + 2), startTijd[1]);
-                console.log(startDate);
-                endTime = roo[i].end;
-                endDag = endTime.split("T")[0];
-                endDag = endDag.split("-");
-                endTijd = endTime.split("T")[1];
-                endTijd = endTijd.split(":");
-                endDate = new Date(endDag[0], (parseInt(endDag[1]) - 1), endDag[2], (parseInt(endTijd[0]) + 2), endTijd[1]);              
-                console.log(endDate);
-                
-                if(roo[i].type == "test")
-                    clas = 'test';
-                else if (roo[i].type == "homework")
-                    clas = 'homework';
-                else
-                    clas = 'regular';
-                $scope.events.push({
-                    title: roo[i].vak,
-                    start: startDate,
-                    end: endDate,
-                    className: [clas]
-                });
+        id = appService.getID();
+        $.ajax({      
+            contentType : "application/json",
+    		type: 'GET',
+    		url: 'http://applab.ai.ru.nl:8080/ateam/database/personen/'+id+'/rooster',
+            success: function(data){
+                console.log("Refreshing rooster...");
+                d = JSON.parse(data);
+                roo = d;
+                for (i = 0; i < roo.length; i++) {
+                    console.log(roo[i]);
+                    startTime = roo[i].begin;
+                    startDag = startTime.split("T")[0];
+                    startDag = startDag.split("-");
+                    startTijd = startTime.split("T")[1];
+                    startTijd = startTijd.split(":");
+                    startDate = new Date(startDag[0], (parseInt(startDag[1]) - 1), startDag[2], (parseInt(startTijd[0]) + 2), startTijd[1]);
+                    console.log(startDate);
+                    endTime = roo[i].end;
+                    endDag = endTime.split("T")[0];
+                    endDag = endDag.split("-");
+                    endTijd = endTime.split("T")[1];
+                    endTijd = endTijd.split(":");
+                    endDate = new Date(endDag[0], (parseInt(endDag[1]) - 1), endDag[2], (parseInt(endTijd[0]) + 2), endTijd[1]);              
+                    console.log(endDate);
+
+                    if(roo[i].type == "test")
+                        clas = 'test';
+                    else if (roo[i].type == "homework")
+                        clas = 'homework';
+                    else
+                        clas = 'regular';
+                    $scope.events.push({
+                        title: roo[i].vak,
+                        start: startDate,
+                        end: endDate,
+                        className: [clas]
+                    });
+                }
             }
-        });
-      
+    	    });
     };
+
     /* remove event */
     $scope.remove = function(index) {
       $scope.events.splice(index,1);
@@ -294,7 +320,7 @@ angular.module('ionicApp.controllers', ['ui.calendar', 'ui.bootstrap'])
       }
     };
     /* event sources array*/
-    $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
+    $scope.eventSources = [$scope.events, $scope.eventSource];
     $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
     $scope.uiConfig.calendar.dayNames = ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"];
     $scope.uiConfig.calendar.dayNamesShort = ["Zo", "Ma", "Di", "Woe", "Do", "Vr", "Za"];  

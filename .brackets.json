@@ -1,0 +1,7 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/hooks/after_platform_add/010_install_plugins.js",
+        "/Users/irismonster/app-lab/IonicTest/platforms/ios/build/emulator/example.app/www/lib/ng-cordova-master/demo/hooks/after_plugin_add/010_register_plugin.js",
+        "/Users/irismonster/app-lab/IonicTest/www/js/controllers.js"
+    ]
+}

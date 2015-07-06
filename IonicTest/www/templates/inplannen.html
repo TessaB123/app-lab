@@ -1,7 +1,21 @@
 <ion-view view-title="Inplannen">
     <ion-content>
         <div class="container">
-            <div compile="code">
+            <div ng-repeat = "currentAssignment in toPlan">
+                <div class="toPlanContainer" ng-hide="{{currentAssignment.ingepland}}">
+                    <div class="planVakNaam"> {{currentAssignment.vak}} </div>
+                    <div class="planContent"> {{currentAssignment.content}} </div>
+                    <div class="planDeadline"> {{currentAssignment.deadline}} </div>
+                    <div class="list list-inset">
+                        <label class="item item-input">
+                            <input type="telephone" placeholder="Hoeveel keer?" ng-model='currentAssignment.data.keer'>
+                        </label>
+                        <label class ="item item-input">
+                            <input type="telephone" placeholder="Hoe lang elke blok in minuten" ng-model='currentAssignment.data.tijd'>
+                        </label>
+                    </div>
+                    <button class="button button-calm button-outline" ng-click='planIn(currentAssignment)'>Plan in</button>
+                </div>
             </div>
         </div>
     </ion-content>
